@@ -1,10 +1,17 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles  # Neu
+from fastapi.responses import FileResponse  # Neu
+
 app = FastAPI()
+
+# Statische Dateien servieren
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-    
-    
-@app.get('/favicon.ico', include_in_schema=False)
-async def default_favicon():
-    return FileResponse("favicon.ico")
+
+# Favicon-Endpunkt hinzufügen
+@app.get("/favicon.ico")
+async def favicon():
+    return FileResponse("static/favicon.ico")
