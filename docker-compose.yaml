@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend  # Verwendet das Dockerfile im backend-Ordner
+    ports:
+      - "8000:8000"   # Host-Port : Container-Port
+    volumes:
+      - ./backend:/app # Bind-Mount für Live-Reload (Entwicklung)
+    working_dir: /app  # Arbeitsverzeichnis im Container
+    command: uvicorn test:app --host 0.0.0.0 --port 8000 --reload
